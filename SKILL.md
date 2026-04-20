@@ -231,18 +231,18 @@ Long tasks cause context loss — the agent forgets the method and starts freest
 
 **Mandatory reload checkpoints** — re-read the skill and rebuild state at these moments:
 
-1. Before each new iteration cycle (not just the first)
+1. Before each new iteration cycle — emit the visible state checkpoint here
 2. After any large tool output that may have pushed the method out of context
 3. After returning from a delegated subagent (its results may have shifted focus)
 4. When the agent notices it is acting without the target/goal/validation frame
 
-**State snapshot** — write at the end of each iteration, before starting the next:
+**Visible state checkpoint** — emit at the start of every new iteration cycle. This line is user-facing: it confirms the task is still running under the boost method and shows where it stands.
 
 ```text
-Target: | Goal: | Surface: | Validation: | Guardrails: | Next Action:
+[boost] Iter N | Target: <X> | Last: <keep/rollback/switch — what changed> | Next: <hypothesis> | Guardrails: <ok / ⚠ flag>
 ```
 
-Keep it on one or two lines. The snapshot is a reload anchor, not a summary.
+One line. Serves as both a user-visible signal and a reload anchor for the next cycle.
 
 **Drift signals** — if any of these appear, pause and reload before continuing:
 - Target fuzzes or broadens without explicit re-charter
@@ -264,7 +264,7 @@ Unless the user requests another format, structure the response as:
 8. `Execution or Plan` (with Execution Confirmation)
 9. `Result, Ledger Update, and Next Iteration`
 
-For autonomous runs, keep updating the same structure across iterations rather than restarting from scratch. Favor tables and tight bullets over long prose.
+For autonomous runs, keep updating the same structure across iterations rather than restarting from scratch. Favor tables and tight bullets over long prose. Begin each new iteration with the visible state checkpoint so the user can confirm the task is still governed by the boost method.
 
 ## Execution Modes
 

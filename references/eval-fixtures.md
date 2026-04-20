@@ -309,7 +309,7 @@ Use after a long, noisy thread where the target was already confirmed earlier.
 
 - The handoff is explicit, reasoned, and does not lose the optimization structure.
 
-## Fixture 11: Parallel Sidecars Should Delegate
+## Fixture 15: Parallel Sidecars Should Delegate
 
 ### User request
 
@@ -331,7 +331,7 @@ Use after a long, noisy thread where the target was already confirmed earlier.
 
 - The plan chooses bounded parallel delegation and keeps the main thread responsible for integration and final validation.
 
-## Fixture 12: Risky Change Should Consider Worktree Isolation
+## Fixture 16: Risky Change Should Consider Worktree Isolation
 
 ### User request
 
@@ -353,7 +353,7 @@ Use after a long, noisy thread where the target was already confirmed earlier.
 
 - The response explicitly selects isolated execution and explains how validated results return to the main workspace.
 
-## Fixture 13: Claude Adapter Should Stay Claude-Specific
+## Fixture 17: Claude Adapter Should Stay Claude-Specific
 
 ### User request
 
@@ -373,7 +373,7 @@ Use after a long, noisy thread where the target was already confirmed earlier.
 
 - Claude-specific behavior is captured in Claude adapter files without polluting the cross-host method.
 
-## Fixture 14: Codex Adapter Should Stay Codex-Specific
+## Fixture 18: Codex Adapter Should Stay Codex-Specific
 
 ### User request
 
@@ -394,7 +394,7 @@ Use after a long, noisy thread where the target was already confirmed earlier.
 
 - Codex has an explicit adapter layer and its metadata remains aligned with the shared method.
 
-## Fixture 15: Claude Adapter Should Avoid Overtrigger Language
+## Fixture 19: Claude Adapter Should Avoid Overtrigger Language
 
 ### User request
 
@@ -415,7 +415,7 @@ Use after a long, noisy thread where the target was already confirmed earlier.
 
 - The Claude adapter remains clear, but it no longer encourages overtriggering by tone alone.
 
-## Fixture 16: Codex Adapter Should Read Like Project Operating Notes
+## Fixture 20: Codex Adapter Should Read Like Project Operating Notes
 
 ### User request
 
@@ -435,6 +435,27 @@ Use after a long, noisy thread where the target was already confirmed earlier.
 ### Pass criteria
 
 - Codex-facing instructions read like repo operating notes and support reliable execution.
+
+## Fixture 21: Visible State Checkpoint On Multi-Iteration Run
+
+### User request
+
+`用 $boost 持续优化这个流程，跑几轮直到达标。`
+
+### Must do
+
+- Emit a visible `[boost] Iter N | ...` checkpoint line at the start of each iteration after the first.
+- The checkpoint must include: iteration number, target, last decision (keep/rollback/switch + what changed), next hypothesis, guardrails status.
+
+### Must not do
+
+- Do not only emit the state snapshot internally — it must appear in the user-visible output.
+- Do not skip the checkpoint even when context is long or noisy.
+
+### Pass criteria
+
+- Every iteration boundary in the output has a `[boost] Iter N | ...` line.
+- The user can read the output and confirm the task never left the boost method.
 
 ## Minimal Rubric
 

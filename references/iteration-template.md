@@ -98,7 +98,7 @@ Why:
 Next:
 ```
 
-## 10. End-of-Iteration Review
+## 8. End-of-Iteration Review
 
 Close the loop explicitly.
 

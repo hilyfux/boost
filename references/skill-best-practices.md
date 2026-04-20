@@ -306,7 +306,7 @@ Support these comparisons with the regression fixtures in `references/eval-fixtu
 
 When updating this skill:
 
-1. Back up the files you are about to rewrite (for example, `SKILL.md.bak`). This project is not tracked by git, so a manual backup is the rollback path.
+1. Commit before experimenting — this project is tracked by git, which is the primary rollback path. Manual `.bak` files are optional extra insurance.
 2. Change the workspace copy first.
 3. Validate the skill structure: line count, frontmatter, link integrity, fixture walk-through.
 4. Sync the installed copies by copying, not moving.
