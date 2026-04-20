@@ -2,11 +2,22 @@
 name: boost
 description: Use when the user asks to optimize, improve, iterate, diagnose, evolve, monitor, stabilize, raise quality, reduce cost, reduce failure, raise conversion, or help an object get better over time. Triggers on software systems, workflows, prompts, skills, team processes, product surfaces, services, datasets, content pipelines, agents, support flows, or any observable artifact with a goal. Also triggers in Chinese on 优化、持续进化、监控问题、提出优化方案、定义验证指标、验证效果、迭代改进、提升质量、降低成本、减少失败、提高稳定性、提高转化. Structures an observe-diagnose-optimize-validate-iterate loop with explicit target, goal, validation, mutable-surface, and execution confirmation gates. The target can be this skill itself only when the user explicitly names it.
 hooks:
+  PreToolUse:
+    - matcher: "Bash|Read|Grep|Glob"
+      hooks:
+        - type: command
+          command: "F=/tmp/boost-drift-counter; C=$(($(cat $F 2>/dev/null||echo 0)+1)); echo $C>$F; [ $C -ge 6 ] && printf '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"additionalContext\":\"[boost] 已连续 %d 次探索性调用未产生变更。暂停确认：当前在 Step 几？仍在框架内吗？Step 3 收集信息正常，但无目标的漫游需要回到步骤。\"}}' $C || true"
+          timeout: 5
   PostToolUse:
     - matcher: "Edit|Write"
       hooks:
         - type: command
-          command: "printf '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"[boost] 文件已修改。Step 6 (Validate) 必须立即执行：读取变更文件，对比前后，展示证据。不验证不能继续。\"}}'"
+          command: "echo 0>/tmp/boost-drift-counter; printf '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"[boost] 文件已修改。Step 6 (Validate) 必须立即执行：读取变更文件，对比前后，展示证据。不验证不能继续。\"}}'"
+          timeout: 5
+  Stop:
+    - hooks:
+        - type: command
+          command: "rm -f /tmp/boost-drift-counter; printf '{\"decision\":\"approve\",\"stopReason\":\"[boost] 回合结束前检查：是否已发出迭代检查点？目标是否达成？如果未完成，说明停止原因。\"}'"
           timeout: 5
 ---
 
