@@ -1,0 +1,4 @@
+interface:
+  display_name: "Self Evolution"
+  short_description: "Optimize a target object with a research charter, locked evaluator, and on-demand iteration paths"
+  default_prompt: "Use $self-evolution to optimize a target object. First confirm the target, goal, mutable surface, locked evaluator, and scope. Then map observability, identify the highest-leverage problem, choose one concrete next experiment, record it in a compact ledger, and use local work, subagents, or isolated worktrees only when they clearly improve execution."
