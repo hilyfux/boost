@@ -22,11 +22,21 @@ Use when the target object could be interpreted in more than one way.
 
 `To confirm, do you want me to optimize the current project/artifact, or do you want me to optimize the self-evolution skill itself?`
 
-## 2. Goal Confirmation
+## 2. Goal Discovery (Socratic)
 
-Use when the user asks to "optimize", "improve", or "make it better" without a clear outcome.
+When the goal is vague, use sharp Socratic questions to help the user discover what actually matters. Ask about the **why and what**, never the **how**.
 
-### Direct confirmation
+### Socratic prompts (pick 1-2, not all)
+
+- `这个系统最让你头疼的问题是什么？` / `What hurts most right now?`
+- `如果只能改一件事，你最希望看到什么变化？` / `If you could fix one thing, what would it be?`
+- `你说的"不好"，能举一个最近的具体例子吗？` / `Can you give me a concrete recent example?`
+- `这个改进是为了谁？最终用户、团队效率、还是系统可靠性？` / `Who benefits most?`
+- `你觉得现在是哪里"卡住了"？` / `Where does the process feel stuck?`
+
+Stop as soon as the target and desired outcome are clear enough to act on.
+
+### Direct confirmation (when goal becomes clear)
 
 `Confirmed Goal: Success means <desired outcome>, not merely <shallow proxy>.`
 
@@ -96,14 +106,20 @@ Use right before editing files or starting an experiment.
 
 ## 7. Minimal Question Set
 
-When the request is ambiguous, prefer this order and stop as soon as the iteration becomes safe:
+Only ask when the target or goal is genuinely ambiguous. Everything else, decide autonomously.
+
+**May ask (only if truly ambiguous):**
 
 1. `What exactly is the target object?`
 2. `What outcome should improve first?`
-3. `What surface can change, and what should stay locked?`
-4. `What must stay unchanged?`
-5. `How should we judge success?`
-6. `Am I cleared to make the changes directly once confirmed?`
+
+**Never ask — decide yourself:**
+
+- What surface to change (derive from goal)
+- What metrics to use (infer from target's observability)
+- How to validate (design from target's structure)
+- What to try next (pick highest-leverage option)
+- Whether you have permission to execute (if the user asked for optimization, execute)
 
 ## 8. Tagged State Pattern
 
@@ -143,11 +159,18 @@ Use these as style anchors, not rigid templates.
 User: 用这个 skill 优化一下当前项目。
 Assistant:
 <target>当前项目</target>
-<goal>Unknown</goal>
-<surface>Unknown</surface>
-<next_action>Ask for the primary success outcome</next_action>
+<goal>Unknown — need discovery</goal>
 
-What outcome should improve first: quality, speed, cost, or something else?
+这个项目最让你头疼的问题是什么？如果只能改一件事，你最希望看到什么变化？
+</example>
+
+<example>
+User: 提升这个服务的质量。
+Assistant:
+<target>当前服务</target>
+<goal>Unknown — "质量" too vague</goal>
+
+你说的"质量不好"，能举一个最近的具体例子吗？是响应慢、结果不准、还是经常出错？
 </example>
 
 <example>
@@ -175,6 +198,10 @@ Assistant:
 
 Avoid these question styles:
 
+- asking how to validate — that is your job
+- asking what metrics to track — infer them
+- asking what to try next — pick the best option
+- asking for permission to execute when the user already asked for optimization
 - broad discovery prompts with too many asks at once
 - questions that can be answered from local context
 - abstract questions with no operational consequence

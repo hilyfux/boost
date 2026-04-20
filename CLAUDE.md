@@ -21,27 +21,76 @@ This project is the source workspace for the `self-evolution` skill.
 - `agents/openai.yaml` is Codex-side metadata, not the method itself.
 - `AGENTS.md` is the Codex-side project adapter; keep host-specific rules aligned across both adapter files.
 
+## Claude Code Execution Patterns
+
+This section guides Claude Code when running the self-evolution skill on any target — not just this project.
+
+### Validation With Tools
+
+The validation protocol in SKILL.md requires concrete checks. In Claude Code, use these tools:
+
+| Validation need | Tool pattern |
+|----------------|-------------|
+| Check file content after edit | `Read` the changed file, confirm the change landed correctly |
+| Compare before/after | `Bash` with `git diff` or store the original via `Read` before editing |
+| Run tests | `Bash` to execute the project's test command |
+| Check build | `Bash` to run build/lint/typecheck |
+| Verify structure | `Grep` or `Glob` to confirm expected patterns exist |
+| Measure output quality | `Bash` to run the artifact and inspect output |
+| Regression check | `Bash` to run the existing test suite or fixture set |
+
+Always capture baseline state before executing changes. At minimum, read the files you plan to change.
+
+### Validation Examples
+
+**After editing a prompt file:**
+1. Read the changed file to confirm the edit is correct
+2. If a test harness exists, run it and compare output to baseline
+3. If no harness, produce one sample output and inspect it
+
+**After editing code:**
+1. Run the project's test suite or linter
+2. If tests pass, check the specific behavior that should have changed
+3. If tests fail, diagnose before declaring rollback
+
+**After editing this skill itself:**
+1. Count SKILL.md lines (soft limit ~300)
+2. Check that frontmatter is valid
+3. Walk through 2-3 eval fixtures mentally or by re-reading them
+4. Verify reference links still resolve
+
+### When Validation Is Not Runnable
+
+If the target has no tests, no build, and no runnable output, say so explicitly. Propose instrumentation as the first optimization rather than skipping validation silently.
+
+### Using Host Capabilities
+
+Use subagents, worktrees, and other host capabilities when they earn their cost — see the Execution Topology table in SKILL.md for trigger conditions. Key principles:
+
+- Subagents get narrow scope and a concrete deliverable. Never delegate the keep/rollback decision.
+- Worktrees are for risky experiments that could destabilize the workspace. Merge only after validation.
+- After any delegation returns, restate the state snapshot before acting on results.
+
+### Context Preservation
+
+If you notice yourself editing without knowing which experiment the edit belongs to — STOP. Re-read `SKILL.md`, rebuild state, then continue. This is the #1 failure mode in long sessions.
+
 ## Claude Code Working Style
 
-- Keep `SKILL.md` lean. If guidance is Claude-specific or optional, prefer `CLAUDE.md` or `references/` over bloating the main skill file.
-- Use the staged confirmation flow defined in `SKILL.md`: target, goal, surface, validation, and execution.
-- Add surface confirmation when scope may drift: mutable surface first, locked evaluator second.
-- Be explicit and concrete about the desired behavior. Prefer clear positive instructions over vague intent.
-- Ask the smallest number of clarification questions needed to unblock meaningful progress.
-- Match instruction freedom to task fragility. Use low-freedom wording for risky sequences, medium freedom for preferred templates, and high freedom for context-dependent diagnosis.
-- When the thread becomes long or noisy, re-open `SKILL.md` and rebuild the active state from `references/iteration-state-snapshot.md` before continuing.
-- Prefer editing the skill method and references over adding extra project documentation.
-- Keep changes concise, operational, and host-compatible.
-- Avoid over-aggressive trigger wording in host-specific guidance. Do not turn every preference into `MUST use` language, because newer Claude models may overtrigger.
-- When context packaging gets complex, prefer compact XML-like tags such as `<target>`, `<goal>`, `<surface>`, `<validation>`, and `<next_action>`.
-- Prefer a few concrete examples over long abstract explanation. For recurring ambiguous patterns, keep 3-5 compact examples in references.
-- Stay local by default. Use Claude Code built-in `Explore` for read-only evidence gathering that would otherwise flood the main context. Use built-in `Plan` when sequencing is the hard part after target and goal are already clear.
-- Prefer focused subagents with narrow responsibilities, clear descriptions, and only the tools they need. Create a custom subagent only if the same specialized sidecar keeps recurring.
-- Trigger an isolated worktree or equivalent checkout only when one exploration or implementation path is broad, risky, or rollback-sensitive enough to justify separation.
-- Keep the workspace copy as the source of truth even when worktrees or subagents are used; integrate validated results back into this project explicitly.
-- Treat the main thread as the research lead and subagents as lab assistants: they may explore or implement bounded paths, but they do not own the final judgment.
-- When Claude Code-specific guidance diverges from Codex-specific guidance, keep the shared method in `SKILL.md` and isolate host-specific behavior in `CLAUDE.md` or `AGENTS.md`.
-- Use examples and fixtures to stabilize ambiguous behavior instead of endlessly stacking abstract prose.
+When editing this skill project specifically:
+
+- Keep `SKILL.md` lean. Move Claude-specific or optional guidance to `CLAUDE.md` or `references/`.
+- Use the staged confirmation flow: target, goal, surface, validation, execution.
+- Add surface confirmation when scope may drift.
+- Ask the smallest number of clarification questions needed to unblock progress.
+- When the thread becomes long or noisy, re-open `SKILL.md` and rebuild state from `references/iteration-state-snapshot.md`.
+- Prefer compact XML-like tags (`<target>`, `<goal>`, `<surface>`, `<validation>`, `<next_action>`) when context is dense.
+- Prefer a few concrete examples over long abstract explanation.
+- Stay local by default. Use `Explore` for read-heavy evidence gathering. Use `Plan` when sequencing is the hard part.
+- Prefer focused subagents with narrow responsibilities. Trigger worktrees only for broad/risky changes.
+- Keep the workspace copy as source of truth; integrate validated results back explicitly.
+- Avoid over-aggressive trigger wording that causes newer Claude models to overtrigger.
+- Use examples and fixtures to stabilize ambiguous behavior.
 
 ## Claude Fast Path
 

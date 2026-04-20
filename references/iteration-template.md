@@ -80,47 +80,25 @@ Execution Plan:
 Execution Confirmation:
 ```
 
-## 6. Experiment Ledger Entry
-
-Record every meaningful branch in one compact line or block so the next iteration can reuse the learning.
+## 6. Ledger (in context, not in files)
 
 ```text
-Baseline:
-Attempt:
-Expected Win:
-Observed Result:
+Attempt: | Expected: | Observed: | Decision: keep/revise/rollback/switch | Why:
+```
+
+## 7. Validation and Decision
+
+Before deciding, run a concrete check. State what you checked and what you found.
+
+```text
+Checked: (what was verified and how)
+Before: | After:
 Decision: Keep / Revise / Rollback / Switch
 Why:
-Rejected Idea Memory:
+Next:
 ```
 
-## 7. Execution Topology
-
-Use this section only when multiple paths, delegated sidecars, or isolated experiments are relevant. Skip it when the local path is sufficient.
-
-```text
-Triggered: yes / no
-Topology: local / delegated / isolated-worktree / delegated+isolated-worktree
-Why this topology:
-Exploration branches:
-Main-thread responsibility:
-Delegated subtasks:
-Delegated ownership boundaries:
-Worktree purpose:
-Primary path selection rule:
-Integration plan:
-Rollback path:
-```
-
-## 8. Decision After Validation
-
-```text
-Decision: Keep / Revise / Rollback / Switch
-Reason:
-Next Iteration Trigger:
-```
-
-## 9. End-of-Iteration Review
+## 10. End-of-Iteration Review
 
 Close the loop explicitly.
 

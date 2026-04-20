@@ -37,26 +37,36 @@ Open Questions:
 - If something is unknown, write `Unknown` rather than guessing.
 - Replace stale state instead of appending to it forever.
 
-## When to Refresh
+## Mandatory Reload Checkpoints
 
-Refresh the snapshot when:
+Do not wait for drift to happen. Proactively reload at these moments:
 
-- the target is newly confirmed
-- the goal changes
-- the validation basis changes
-- the next action changes
+| Checkpoint | Action |
+|-----------|--------|
+| Before each new iteration cycle | Re-read snapshot. If any field is unclear, re-open `SKILL.md`. |
+| After large tool output (big grep, long test, etc.) | Write a one-line state anchor before proceeding. |
+| After subagent returns | Restate the optimization frame before integrating results. |
+| After context compaction (system truncates history) | Full reload: re-open `SKILL.md`, re-read snapshot, rebuild state. |
+
+## When to Refresh the Snapshot
+
+Refresh when:
+
+- target, goal, validation, or next action changes
+- an iteration completes (keep/rollback decision made)
 - the user corrects a misunderstanding
-- the thread becomes long enough that the active plan may be forgotten
+- the agent returns from a subagent or worktree
 
 ## Recovery Protocol
 
-When drift is suspected:
+When drift is detected (editing without knowing which experiment, target fuzzing, skipping validation):
 
-1. Re-open `SKILL.md`.
-2. Re-open any needed references.
-3. Restate the latest valid snapshot.
-4. Confirm whether the snapshot still matches the user's intent.
-5. Continue only after target, goal, surface, validation, and next action are coherent again.
+1. STOP the current action.
+2. Re-open `SKILL.md`.
+3. Re-open this reference and any needed references.
+4. Restate the latest valid snapshot.
+5. Confirm the snapshot matches the user's intent.
+6. Continue only after the frame is coherent again.
 
 ## Example
 
