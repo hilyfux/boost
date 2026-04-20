@@ -1,6 +1,6 @@
 # Eval Fixtures
 
-Use these fixtures as regression checks for `self-evolution`.
+Use these fixtures as regression checks for `boost`.
 
 The goal is not to force exact wording. The goal is to verify that the skill chooses the right behavior under realistic requests.
 
@@ -26,13 +26,13 @@ Use `fail` if the skill picks the wrong target, skips a required confirmation, e
 
 ### User request
 
-`用 $self-evolution 优化当前项目的 Claude Code 兼容性。`
+`用 $boost 优化当前项目的 Claude Code 兼容性。`
 
 ### Must do
 
 - Trigger the skill.
 - Confirm that the target is the current project.
-- Reject the interpretation that the target is the `self-evolution` skill itself.
+- Reject the interpretation that the target is the `boost` skill itself.
 - Explore the project before proposing or executing changes.
 
 ### Must not do
@@ -48,7 +48,7 @@ Use `fail` if the skill picks the wrong target, skips a required confirmation, e
 
 ### User request
 
-`把 self-evolution 这个 skill 本身当成目标对象，优化它的触发准确率。`
+`把 boost 这个 skill 本身当成目标对象，优化它的触发准确率。`
 
 ### Must do
 
@@ -68,7 +68,7 @@ Use `fail` if the skill picks the wrong target, skips a required confirmation, e
 
 ### User request
 
-`用 $self-evolution 把这个东西优化一下。`
+`用 $boost 把这个东西优化一下。`
 
 ### Must do
 
@@ -87,7 +87,7 @@ Use `fail` if the skill picks the wrong target, skips a required confirmation, e
 
 ### User request
 
-`用 $self-evolution 分析一下这个 workflow 的缺点，先不要改。`
+`用 $boost 分析一下这个 workflow 的缺点，先不要改。`
 
 ### Must do
 
@@ -205,7 +205,7 @@ Use after a long, noisy thread where the target was already confirmed earlier.
 
 ### User request
 
-`用 $self-evolution 优化这个数据库 schema 的迁移计划。`
+`用 $boost 优化这个数据库 schema 的迁移计划。`
 
 ### Must do
 
@@ -267,7 +267,7 @@ Use after a long, noisy thread where the target was already confirmed earlier.
 
 ### User request
 
-`把 self-evolution 这个 skill 本身当目标，优化它在 Claude Code 中的表现。`
+`把 boost 这个 skill 本身当目标，优化它在 Claude Code 中的表现。`
 
 ### Must do
 
@@ -290,7 +290,7 @@ Use after a long, noisy thread where the target was already confirmed earlier.
 
 ### User request
 
-`用 $self-evolution 优化这个项目，先收集日志和搜索结果，但别把主线程上下文刷爆。`
+`用 $boost 优化这个项目，先收集日志和搜索结果，但别把主线程上下文刷爆。`
 
 ### Must do
 

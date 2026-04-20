@@ -1,11 +1,11 @@
 # AGENTS.md
 
-This project is the source workspace for the `self-evolution` skill.
+This project is the source workspace for the `boost` skill.
 
 ## Purpose
 
 - The workspace copy is the source of truth for this skill.
-- Installed copies live under `~/.codex/skills/self-evolution/` and `~/.claude/skills/self-evolution/`.
+- Installed copies live under `~/.codex/skills/boost/` and `~/.claude/skills/boost/`.
 - Update this workspace first, validate it, then sync installed copies by copying.
 
 ## Codex Working Style
@@ -36,8 +36,8 @@ This project is the source workspace for the `self-evolution` skill.
 After editing this project:
 
 1. Validate the workspace copy.
-2. Copy updated files into `~/.codex/skills/self-evolution/`.
-3. Copy updated files into `~/.claude/skills/self-evolution/`.
+2. Copy updated files into `~/.codex/skills/boost/`.
+3. Copy updated files into `~/.claude/skills/boost/`.
 4. Verify the installed copies match the workspace source.
 
 Never move the project directory during installation or sync.

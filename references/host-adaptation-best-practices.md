@@ -1,6 +1,6 @@
 # Host Adaptation Best Practices
 
-Use this reference when tuning `self-evolution` specifically for Claude Code and Codex.
+Use this reference when tuning `boost` specifically for Claude Code and Codex.
 
 The goal is not to fork the method. The goal is to keep one shared optimization loop in `SKILL.md` while adapting prompt surfaces, memory surfaces, and execution patterns to each host.
 

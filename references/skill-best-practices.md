@@ -1,6 +1,6 @@
 # Skill Best Practices
 
-Use this reference when improving the `self-evolution` skill itself or when adapting it across hosts such as Codex and Claude Code.
+Use this reference when improving the `boost` skill itself or when adapting it across hosts such as Codex and Claude Code.
 
 This file summarizes practical guidance from official Anthropic and OpenAI materials:
 
@@ -159,7 +159,7 @@ This skill is written so the same method works across agent hosts, including Cod
 
 ### Claude Code
 
-- Install under `~/.claude/skills/self-evolution/` for user-wide scope or `.claude/skills/<project>/skills/self-evolution/` for project scope.
+- Install under `~/.claude/skills/boost/` for user-wide scope or `.claude/skills/<project>/skills/boost/` for project scope.
 - Claude Code reads `SKILL.md` frontmatter (`name`, `description`, ≤1024 chars) to decide when to load the skill.
 - Project-level `CLAUDE.md` and user-level `~/.claude/CLAUDE.md` hold persistent rules that apply across all conversations. Keep multi-step procedures inside this skill so they load only when relevant.
 - Claude Code ignores `agents/openai.yaml`; leaving it present does not cause harm.
@@ -172,7 +172,7 @@ This skill is written so the same method works across agent hosts, including Cod
 
 ### Codex
 
-- Install under `~/.codex/skills/self-evolution/`.
+- Install under `~/.codex/skills/boost/`.
 - Codex reads `agents/openai.yaml` for `display_name`, `short_description`, and `default_prompt`. Keep that file present and in sync with the main method.
 - Codex also reads `SKILL.md` for the method. The same frontmatter does not break Codex discovery.
 - Persistent Codex-wide or project-level rules belong in `AGENTS.md` or the host's equivalent memory file, not inside this skill.
@@ -186,10 +186,10 @@ This skill is written so the same method works across agent hosts, including Cod
 
 When updating the method:
 
-1. Change the workspace copy first: `/Users/wanglinqing/Desktop/workspace-desktop/skills/self-evolution/`.
+1. Change the workspace copy first: `/Users/wanglinqing/Desktop/workspace-desktop/skills/boost/`.
 2. Validate the skill structure (line count, frontmatter, links, fixtures).
-3. Copy updated files into `~/.claude/skills/self-evolution/`.
-4. Copy updated files into `~/.codex/skills/self-evolution/`.
+3. Copy updated files into `~/.claude/skills/boost/`.
+4. Copy updated files into `~/.codex/skills/boost/`.
 5. Verify the installed copies match the workspace source.
 6. Do not move the project directory during installation. Always copy.
 
@@ -199,7 +199,7 @@ Never maintain divergent versions of `SKILL.md` across hosts. Divergence defeats
 
 This skill may be used on itself, but only as an explicit exception. Do this only when the user clearly names the skill as the target object:
 
-- Object: the `self-evolution` skill
+- Object: the `boost` skill
 - Goal: improve usefulness, clarity, triggerability, or outcome quality
 - Observability: invocation quality, ambiguity, missed cases, validation failures, user corrections
 - Optimizations: tighten instructions, clarify outputs, add references, improve evaluation design

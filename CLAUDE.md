@@ -1,17 +1,17 @@
 # CLAUDE.md
 
-This project is the source workspace for the `self-evolution` skill.
+This project is the source workspace for the `boost` skill.
 
 ## Project Purpose
 
 - The workspace copy is the source of truth for this skill.
-- Installed copies live under `~/.codex/skills/self-evolution/` and `~/.claude/skills/self-evolution/`.
+- Installed copies live under `~/.codex/skills/boost/` and `~/.claude/skills/boost/`.
 - Update the workspace copy first, then sync installed copies by copying, never by moving the project directory.
 
 ## Targeting Rules
 
 - If the user asks to optimize "当前项目", "这个项目", "this project", or the current repo, the target is this project and its files.
-- Do not treat the loaded `self-evolution` skill as the target object unless the user explicitly says to optimize the skill itself.
+- Do not treat the loaded `boost` skill as the target object unless the user explicitly says to optimize the skill itself.
 - Do not rewrite installed copies first. Make changes in this workspace, validate them, then copy the updated files to installed locations.
 
 ## Files That Matter
@@ -23,7 +23,7 @@ This project is the source workspace for the `self-evolution` skill.
 
 ## Claude Code Execution Patterns
 
-This section guides Claude Code when running the self-evolution skill on any target — not just this project.
+This section guides Claude Code when running the boost skill on any target — not just this project.
 
 ### Validation With Tools
 
@@ -111,8 +111,8 @@ If the request is ambiguous, ask at most the minimum next question needed to fil
 After editing this project:
 
 1. Validate the workspace copy.
-2. Copy updated files into `~/.codex/skills/self-evolution/`.
-3. Copy updated files into `~/.claude/skills/self-evolution/`.
+2. Copy updated files into `~/.codex/skills/boost/`.
+3. Copy updated files into `~/.claude/skills/boost/`.
 4. Verify the installed copies match the workspace source.
 
 Never move the project directory during installation or sync.

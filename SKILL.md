@@ -1,9 +1,9 @@
 ---
-name: self-evolution
+name: boost
 description: Use when the user asks to optimize, improve, iterate, diagnose, evolve, monitor, stabilize, raise quality, reduce cost, reduce failure, raise conversion, or help an object get better over time. Triggers on software systems, workflows, prompts, skills, team processes, product surfaces, services, datasets, content pipelines, agents, support flows, or any observable artifact with a goal. Also triggers in Chinese on 优化、持续进化、监控问题、提出优化方案、定义验证指标、验证效果、迭代改进、提升质量、降低成本、减少失败、提高稳定性、提高转化. Structures an observe-diagnose-optimize-validate-iterate loop with explicit target, goal, validation, mutable-surface, and execution confirmation gates. The target can be this skill itself only when the user explicitly names it.
 ---
 
-# Self Evolution
+# Boost
 
 ## Overview
 
@@ -52,10 +52,10 @@ Resolve the target object before anything else. Priority order:
 
 1. If the user names a concrete object, file, repository, workflow, service, document, prompt, or project, that named thing is the target.
 2. If the user says "当前项目", "这个项目", "this project", "this repo", "this workflow", or points at surrounding workspace artifacts, the target is that project or artifact, not this skill.
-3. Treat `self-evolution` itself as the target only when the user explicitly says so with wording such as "优化这个 skill", "improve this skill itself", "把这个技能当成对象", or equivalent.
+3. Treat `boost` itself as the target only when the user explicitly says so with wording such as "优化这个 skill", "improve this skill itself", "把这个技能当成对象", or equivalent.
 4. If still ambiguous, pick the most external user-facing object, not the skill definition that is currently loaded.
 
-Never default to self-modification just because this skill is present in context. Never treat invocation of `$self-evolution` as permission to rewrite `self-evolution` itself.
+Never default to self-modification just because this skill is present in context. Never treat invocation of `$boost` as permission to rewrite `boost` itself.
 
 ## Confirmation Protocol
 
@@ -282,10 +282,10 @@ Default to `iterate` when the user asks for optimization and analysis-only is no
 
 ## Trigger Examples
 
-- "Use $self-evolution to improve our checkout funnel. Map the observability, pick one experiment, and define validation."
-- "Use $self-evolution on this prompt chain. I want higher answer quality without increasing token cost."
+- "Use $boost to improve our checkout funnel. Map the observability, pick one experiment, and define validation."
+- "Use $boost on this prompt chain. I want higher answer quality without increasing token cost."
 - "Treat this skill itself as the target object and improve its triggerability, clarity, and evaluation design."
-- "Use $self-evolution to turn this workflow into an autoresearch-style loop with a locked evaluator and a visible experiment ledger."
+- "Use $boost to turn this workflow into an autoresearch-style loop with a locked evaluator and a visible experiment ledger."
 - "参考 Karpathy 的 autoresearch 思路，把这个 agent workflow 改成有研究章程、固定评测面和实验账本的闭环。"
 - "把这个技能当成一个对象来进化，不要只给建议，要直接修改能提高触发率和可执行性的部分。"
 

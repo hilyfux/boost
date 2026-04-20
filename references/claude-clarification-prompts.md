@@ -20,7 +20,7 @@ Use when the target object could be interpreted in more than one way.
 
 ### Ask when the loaded skill is a tempting wrong target
 
-`To confirm, do you want me to optimize the current project/artifact, or do you want me to optimize the self-evolution skill itself?`
+`To confirm, do you want me to optimize the current project/artifact, or do you want me to optimize the boost skill itself?`
 
 ## 2. Goal Discovery (Socratic)
 
@@ -184,9 +184,9 @@ Assistant:
 </example>
 
 <example>
-User: 把 self-evolution 这个 skill 本身当目标，优化它在 Claude Code 里的表现。
+User: 把 boost 这个 skill 本身当目标，优化它在 Claude Code 里的表现。
 Assistant:
-<target>self-evolution skill</target>
+<target>boost skill</target>
 <goal>Improve Claude Code execution quality</goal>
 <surface>Edit workspace skill files and Claude-specific adapters first</surface>
 <validation>Judge by clearer triggering, fewer ambiguous branches, and better Claude-specific guidance</validation>

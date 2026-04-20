@@ -1,6 +1,6 @@
-# self-evolution
+# boost
 
-`self-evolution` is an agent skill for optimizing a target object through a disciplined research loop instead of one-shot advice.
+`boost` is an agent skill for optimizing a target object through a disciplined research loop instead of one-shot advice.
 
 ## Description
 
@@ -73,7 +73,7 @@ The method borrows from Karpathy-style `autoresearch` patterns:
 Clone or copy this directory to:
 
 ```bash
-~/.claude/skills/self-evolution/
+~/.claude/skills/boost/
 ```
 
 Claude Code reads `SKILL.md` as the main skill definition and uses `CLAUDE.md` as project guidance when you work on this repository.
@@ -83,7 +83,7 @@ Claude Code reads `SKILL.md` as the main skill definition and uses `CLAUDE.md` a
 Clone or copy this directory to:
 
 ```bash
-~/.codex/skills/self-evolution/
+~/.codex/skills/boost/
 ```
 
 Codex uses both `SKILL.md` and `agents/openai.yaml`.
@@ -92,9 +92,9 @@ Codex uses both `SKILL.md` and `agents/openai.yaml`.
 
 Example requests:
 
-- `Use $self-evolution to improve this prompt chain without increasing token cost.`
-- `用 $self-evolution 优化这个 workflow，先确认目标和验证标准，再做一轮可执行优化。`
-- `Treat the self-evolution skill itself as the target object and improve its Claude Code behavior.`
+- `Use $boost to improve this prompt chain without increasing token cost.`
+- `用 $boost 优化这个 workflow，先确认目标和验证标准，再做一轮可执行优化。`
+- `Treat the boost skill itself as the target object and improve its Claude Code behavior.`
 
 Typical output structure:
 

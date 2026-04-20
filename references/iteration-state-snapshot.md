@@ -71,7 +71,7 @@ When drift is detected (editing without knowing which experiment, target fuzzing
 ## Example
 
 ```text
-Target: Claude Code compatibility of the self-evolution project
+Target: Claude Code compatibility of the boost project
 Goal: Make Claude handle target confirmation and staged questioning more reliably
 Surface: Edit workspace SKILL.md and host adapters, not installed copies first
 Validation: Fewer target-confusion failures and clearer staged confirmations
