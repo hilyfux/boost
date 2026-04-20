@@ -236,11 +236,11 @@ Long tasks cause context loss — the agent forgets the method and starts freest
 3. After returning from a delegated subagent (its results may have shifted focus)
 4. When the agent notices it is acting without the target/goal/validation frame
 
-**Visible state checkpoint** — at the start of each new iteration, output a brief one-line status so the user can see the task is still running under the boost method. Keep it short:
+**Visible state checkpoint** — at the start of each new iteration, output a brief status as a blockquote so it stands out visually from regular prose:
 
-`[boost] Iter N — 上轮：<结果> → 本轮：<目标>`
+> **[boost · Iter N]** 上轮：<结果> → 本轮：<目标>
 
-Exact wording is flexible. The goal is user perceptibility, not a full status report.
+The blockquote renders with a colored left border in Claude Code, making it immediately distinguishable. Keep the content to one short line.
 
 **Drift signals** — if any of these appear, pause and reload before continuing:
 - Target fuzzes or broadens without explicit re-charter
