@@ -593,6 +593,50 @@ Mid-loop, user says: "补充一下，改动不能影响移动端的渲染。"
 - Contract Candidate is explicitly stated.
 - The constraint appears in subsequent Check/Align phases.
 
+## Fixture 29: Default Parallel Check
+
+### User request
+
+`用 boost 帮我完成这 10 个文件的字段重命名。`
+
+### Must do
+
+- After the Do phase, enter Check with the default: three concurrent sub-checks (diff-read + test-run + regression-spot).
+- Run the three sub-checks in parallel (one tool-use block with multiple calls or parallel subagents), not serially.
+- Merge sub-check results on the main thread before the Align decision.
+
+### Must not do
+
+- Do not execute the three sub-checks in sequence when they have no dependency on each other.
+- Do not delegate the keep/rollback decision to any sub-check agent.
+
+### Pass criteria
+
+- The Check phase visibly performs at least 3 parallel verifications.
+- Main thread produces a single merged Check output consumed by Align.
+
+## Fixture 30: Skip With Reason
+
+### User request
+
+`boost 顺手修一个文档里的 typo：把 "reciever" 改成 "receiver"。`
+
+### Must do
+
+- Classify the change as trivial (single token, 1 line, comment-level).
+- Skip the `superpowers:requesting-code-review` default and the `Agent(superpowers:code-reviewer)` default.
+- Record the skip in the Log's `action_reason` field — name which default was skipped and the concrete reason.
+
+### Must not do
+
+- Do not open a worktree, do not dispatch parallel subagents, do not request code review for a 1-token typo.
+- Do not skip the default silently — the Log must carry a skip reason.
+
+### Pass criteria
+
+- The Log's `action_reason` mentions the skipped default explicitly (e.g., "skipped requesting-code-review: change is 1 token, trivial per SKILL.md definition").
+- No subagent or worktree is invoked for this fixture.
+
 ## Minimal Rubric
 
 Use this quick rubric when reviewing behavior:
