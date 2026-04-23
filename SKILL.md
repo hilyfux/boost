@@ -293,6 +293,23 @@ log_summary:      <one-line digest of this cycle>
 
 This log is the mandatory cycle output. It appears in the visible response, not hidden.
 
+## Parallelization & Isolation Defaults
+
+Max-efficiency mode: default to parallel / isolated / delegated; skip only with a stated reason.
+
+| Scenario | Default | Skip only when |
+|----------|---------|----------------|
+| Plan baseline capture | `Agent(subagent_type=boost-observer)` for boost-specific targets; `Agent(subagent_type=Explore)` for general codebase | Target is 1 file < 200 lines |
+| Do: 2+ independent files/modules | `superpowers:dispatching-parallel-agents` | Explicit ordering dependency between files |
+| AutoResearch with ≥ 2 candidates | One worktree + one `Agent` per candidate | Candidates differ only in a parameter value |
+| Check on non-trivial change | Parallel: diff-read + test-run + regression-spot | Change is 1 line |
+| ≥ 3 files touched or rollback-sensitive | `superpowers:using-git-worktrees` | Trivially revertible (< 30s manual revert) |
+| `complete` on non-trivial change | `superpowers:requesting-code-review` + `Agent(subagent_type=superpowers:code-reviewer)` | Pure format / typo |
+
+Skipping a default requires an entry in the Log's `action_reason` field naming which default was skipped and why.
+
+"Non-trivial change" = any single change that touches ≥ 2 files OR ≥ 20 lines OR user-facing behavior OR touches `SKILL.md`. Trivial = everything else (typos, comment-only, single-line internal tweaks).
+
 ## Execution Topology
 
 Use the lightest topology that fits. Trigger heavier ones by condition, not by habit.
