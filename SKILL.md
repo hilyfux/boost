@@ -374,6 +374,7 @@ State exactly why you are stopping. Do not use for explanation-only, brainstormi
 Consult these for deeper methodology when a phase needs more context:
 
 - [references/methodology.md](references/methodology.md) — full methodology: research frames, topology, autonomous iteration, validation protocol, ratchet/rollback patterns
+- [references/orchestration.md](references/orchestration.md) — concrete skill/subagent/worktree dispatch patterns, parallelization hotspots, anti-patterns
 - [references/iteration-template.md](references/iteration-template.md) — structured template for one PDCAA cycle
 - [references/iteration-state-snapshot.md](references/iteration-state-snapshot.md) — compact state for long threads
 - [references/eval-fixtures.md](references/eval-fixtures.md) — regression checks for skill behavior
