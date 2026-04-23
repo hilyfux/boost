@@ -110,6 +110,13 @@ Output:
 
 > **Plan:** <当前最小动作及其理由>
 
+**Handoff (default; skip only when marked):**
+
+- Baseline capture → `Agent(subagent_type=boost-observer)` for boost-specific targets; `Agent(subagent_type=Explore)` for general codebase reads. Skip only when target is a single file < 200 lines.
+- Scope ambiguous / multi-subsystem → `superpowers:brainstorming` before the first Do.
+- Multi-step implementation → `superpowers:writing-plans`.
+- Stuck on design choice → enter AutoResearch (see below).
+
 ### 2. Do
 
 - Execute the current minimum action
@@ -118,6 +125,13 @@ Output:
 Output:
 
 > **Do:** <执行了什么，结果是什么>
+
+**Handoff (default; skip only when marked):**
+
+- Feature / behavior change on code → `superpowers:test-driven-development`.
+- Bug / test failure / unexpected behavior → `superpowers:systematic-debugging`.
+- Broad (≥ 3 files) or rollback-sensitive change → `superpowers:using-git-worktrees`.
+- 2+ independent tasks or files → `superpowers:dispatching-parallel-agents`.
 
 ### 3. Check
 
@@ -139,6 +153,12 @@ Output:
 > - New problems: none / <what>
 > - Verifiable: yes/no — <how verified>
 > - Future checkability: preserved / degraded — <note>
+
+**Handoff (default; skip only when marked):**
+
+- Non-trivial change → parallel sub-checks (diff-read + test-run + regression-spot) in one tool-use block.
+- About to claim "complete / fixed / passing" → `superpowers:verification-before-completion`.
+- Evidence needs independent read → `Agent(subagent_type=superpowers:code-reviewer)` or `Agent(subagent_type=challenger)` as second opinion.
 
 ### 4. Align
 
@@ -163,6 +183,11 @@ Output:
 
 > **Align:** <drift detected: none / type + correction taken>
 
+**Handoff (default; skip only when marked):**
+
+- Drift triggered by ≥ 2 signals in the same cycle → re-read Stable Contract AND consider `superpowers:brainstorming` to re-charter.
+- AutoReceive marked a Contract Candidate → pause PDCAA; run explicit escalation before continuing.
+
 ### 5. Act
 
 Based on Check and Align results, choose exactly one:
@@ -183,6 +208,12 @@ Output:
 If not `complete`, emit the iteration checkpoint and loop back to Plan:
 
 > **[boost · Iter N]** Target: <target> | Goal: <goal> | 上轮: <result> → 本轮: <next focus>
+
+**Handoff (default; skip only when marked):**
+
+- `decision == complete` on non-trivial change → `superpowers:requesting-code-review`.
+- `complete` + ready to merge or PR → `superpowers:finishing-a-development-branch`.
+- `decision == research` → AutoResearch; when ≥ 2 candidates, parallel `Agent(innovator)` + `Agent(pragmatist)` with `Agent(challenger)` as reviewer.
 
 ## AutoResearch
 
