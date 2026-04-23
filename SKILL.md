@@ -312,15 +312,22 @@ Skipping a default requires an entry in the Log's `action_reason` field naming w
 
 ## Execution Topology
 
-Use the lightest topology that fits. Trigger heavier ones by condition, not by habit.
+Use the lightest topology that fits. Trigger heavier ones by condition, not by habit. Under max-efficiency mode (see Parallelization & Isolation Defaults), the heavier rows are the default, not the exception.
 
-| Condition | Topology | Why |
-|-----------|----------|-----|
-| Single-scope edit, next step obvious | `local` | No overhead |
-| 2+ independent exploration directions | `delegated` (parallel subagents) | Explore in parallel, converge in main thread |
-| Read-heavy evidence gathering | `delegated` (Explore subagent) | Preserve main-thread context quality |
-| Risky/broad change, needs cheap rollback | `isolated-worktree` | Main workspace stays clean |
-| Comparing two competing approaches | `delegated` + `isolated-worktree` | Compare without pollution |
+| Condition | Topology | How (concrete) | Guardrail |
+|-----------|----------|----------------|-----------|
+| Single-scope edit, next step obvious | `local` | Main thread uses Edit/Write directly | — |
+| Read-heavy baseline (≥ 3 files or large logs) | `delegated` | `Agent(subagent_type=Explore)` or `Agent(subagent_type=boost-observer)` | Read-only; restate Contract on return |
+| 2+ independent explorations | `delegated` (parallel) | `superpowers:dispatching-parallel-agents` | Each subagent has one bounded deliverable |
+| Competing approaches / second opinion | `delegated` (parallel) | Parallel `Agent(challenger)` + `Agent(innovator)` + `Agent(pragmatist)` | Decision authority stays on main thread |
+| Risky / broad change, cheap rollback needed | `isolated-worktree` | `superpowers:using-git-worktrees` (never hand-write `git worktree`) | Merge only after Check passes |
+| Side-by-side comparison of 2 approaches | `delegated` + `isolated-worktree` | Two `Agent(..., isolation: "worktree")` calls | Equal budget; locked evaluator |
+| Non-trivial Check | `delegated` (parallel) | Diff-read + `Agent(Explore)` regression scan + `Bash` test run | Results merge on main thread; no delegated keep/rollback |
+
+Rules:
+
+- Main thread always owns: Stable Contract, Check evidence review, Act decision, state snapshot. Subagents and worktrees never own keep/rollback.
+- After any subagent / worktree returns, restate `<target> / <goal> / <baseline> / <next_action>` before using its result.
 
 ## Stop When
 
