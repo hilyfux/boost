@@ -1,6 +1,6 @@
 ---
 name: boost
-version: "1.3.0"
+version: "1.4.0"
 description: Use when the user asks to optimize, improve, iterate, diagnose, evolve, monitor, stabilize, raise quality, reduce cost, reduce failure, raise conversion, or help an object get better over time. Triggers on software systems, workflows, prompts, skills, team processes, product surfaces, services, datasets, content pipelines, agents, support flows, or any observable artifact with a goal. Also triggers in Chinese on 优化、持续进化、监控问题、提出优化方案、定义验证指标、验证效果、迭代改进、提升质量、降低成本、减少失败、提高稳定性、提高转化. Structures a strict PDCAA loop (Plan-Do-Check-Align-Act) anchored by a Stable Contract, with AutoResearch, AutoReceive, and Log as built-in enhancements. The target can be this skill itself only when the user explicitly names it.
 hooks:
   PreToolUse:
