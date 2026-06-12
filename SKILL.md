@@ -1,24 +1,24 @@
 ---
 name: boost
-version: "1.4.0"
+version: "1.4.1"
 description: Use when the user asks to optimize, improve, iterate, diagnose, evolve, monitor, stabilize, raise quality, reduce cost, reduce failure, raise conversion, or help an object get better over time. Triggers on software systems, workflows, prompts, skills, team processes, product surfaces, services, datasets, content pipelines, agents, support flows, or any observable artifact with a goal. Also triggers in Chinese on 优化、持续进化、监控问题、提出优化方案、定义验证指标、验证效果、迭代改进、提升质量、降低成本、减少失败、提高稳定性、提高转化. Structures a strict PDCAA loop (Plan-Do-Check-Align-Act) anchored by a Stable Contract, with AutoResearch, AutoReceive, and Log as built-in enhancements. The target can be this skill itself only when the user explicitly names it.
 hooks:
   PreToolUse:
     - matcher: "Bash|Read|Grep|Glob"
       hooks:
         - type: command
-          command: "python3 -c 'import pathlib,json;f=pathlib.Path(\"/tmp/boost-drift-counter\");c=int(f.read_text())+1 if f.exists() else 1;f.write_text(str(c));print(json.dumps({\"additionalContext\":\"[boost] 已连续 \"+str(c)+\" 次探索性调用。快速自检：当前在 PDCAA 哪个阶段？Stable Contract 是否仍然锚定？如果不确定，暂停并重建状态。\"})) if c>=10 else None'"
+          command: "python3 -c 'import pathlib,json;f=pathlib.Path(\"/tmp/boost-drift-counter\");t=f.read_text().strip() if f.exists() else \"\";c=(int(t) if t.isdigit() else 0)+1;f.write_text(str(c));print(json.dumps({\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"additionalContext\":\"[boost] 已连续 \"+str(c)+\" 次探索性调用。快速自检：当前在 PDCAA 哪个阶段？Stable Contract 是否仍然锚定？如果不确定，暂停并重建状态。\"}})) if c>=10 else None'"
           timeout: 5
   PostToolUse:
     - matcher: "Edit|Write"
       hooks:
         - type: command
-          command: "python3 -c 'import pathlib,json;pathlib.Path(\"/tmp/boost-drift-counter\").write_text(\"0\");print(json.dumps({\"additionalContext\":\"[boost] 文件已修改。继续前必须回答：(1) 当前在 PDCAA 哪个阶段？目标是什么？这次编辑属于哪个实验？(2) Check 阶段——读取变更文件，对比前后，展示证据。如果无法回答 (1)，立即 STOP 并重新打开 SKILL.md 重建状态。\"}))'"
+          command: "python3 -c 'import pathlib,json;pathlib.Path(\"/tmp/boost-drift-counter\").write_text(\"0\");print(json.dumps({\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"[boost] 文件已修改。继续前必须回答：(1) 当前在 PDCAA 哪个阶段？目标是什么？这次编辑属于哪个实验？(2) Check 阶段——读取变更文件，对比前后，展示证据。如果无法回答 (1)，立即 STOP 并重新打开 SKILL.md 重建状态。\"}}))'"
           timeout: 5
   Stop:
     - hooks:
         - type: command
-          command: "python3 -c 'import pathlib,json;pathlib.Path(\"/tmp/boost-drift-counter\").unlink(missing_ok=True);print(json.dumps({\"decision\":\"approve\",\"reason\":\"[boost] 回合结束前检查：是否已输出完整 log_summary？Stable Contract 目标是否达成？如果未完成，说明停止原因。\"}))'"
+          command: "python3 -c 'import pathlib;pathlib.Path(\"/tmp/boost-drift-counter\").unlink(missing_ok=True)'"
           timeout: 5
 ---
 
